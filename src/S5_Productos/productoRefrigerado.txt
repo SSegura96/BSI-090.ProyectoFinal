@@ -1,0 +1,4 @@
+#FechaVen#Nombre#numLote#precioCU#CodOSA#
+12/12/20#Coca-Cola#5#2500.0#01616#
+18/12/15#Imperial#40#3500.0#56466#
+30/11/19#Yogurt#20#1000.0#64645#

@@ -1,0 +1,4 @@
+#FechaVen#Nombre#numLote#precioCU#PaisOrigen#fechaEmbasado#
+12/12/20#Tomates#20#600.0#Colombia#15/12/14#
+18/12/15#Papas#10#300.0#Costa Rica#22/01/15#
+30/11/19#Cebolla#40#420.0#Alemania#13/02/15#
