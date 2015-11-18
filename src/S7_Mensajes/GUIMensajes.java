@@ -5,6 +5,9 @@
  */
 package S7_Mensajes;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Sergio
@@ -14,10 +17,76 @@ public class GUIMensajes extends javax.swing.JFrame {
     /**
      * Creates new form GUIMensajes
      */
-    public GUIMensajes() {
+    public GUIMensajes() 
+    {
         initComponents();
+        this.setLocationRelativeTo(null);
+        manipularFrame(false);
     }
-
+    
+     public static ArrayList <Contactos> contactos = new ArrayList ();
+    
+     public void revisarContactos()
+     {
+         String numeroDigitado = jTDestinatario.getText();
+         
+         for (int i = 0; i<contactos.size();i++)
+         {
+            if (contactos.get(i).getNumTel().equals(numeroDigitado))
+            {
+                jTDestinatario.setText(contactos.get(i).getNombre()+" ("+contactos.get(i).getNumTel()+")");
+            }
+         }
+     }
+    
+     public void agregarContacto(String nombre, String numTel, String fechCumpleannos)
+     {
+         contactos.add(new Contactos(nombre, numTel, fechCumpleannos));
+     }
+     
+     public String verContactos ()
+     {
+         String listo = "";
+         
+         for (int i = 0;i<contactos.size();i++)
+         {
+             listo += contactos.get(i).getNombre()+"|"+contactos.get(i).getNumTel()+"\n";
+         }
+         
+         if (listo.equals(""))
+         {
+             return "No se encontaron contactos";
+         }
+         
+         return listo;
+     }
+     
+    public void manipularFrame (boolean ver)
+    {
+        jLUbicacion.setVisible(ver);
+        jTUbicacion.setVisible(ver);
+    }
+    
+    public void leerEstado ()
+    {
+        if (jCTipoMensaje.getSelectedIndex() == 1)
+        {
+            manipularFrame(true);
+        }
+        else
+        {
+           manipularFrame(false);
+        }
+    }
+    
+    public void limpiar ()
+    {
+        jCTipoMensaje.setSelectedIndex(0);
+        jTDestinatario.setText("/src/imgs/*.png");
+        jTMensaje.setText("Digita tu mensaje....");
+        jTDestinatario.setText("####-####");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,14 +98,17 @@ public class GUIMensajes extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jCTipoMensaje = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        jTMensaje = new javax.swing.JTextArea();
+        jBEnviar = new javax.swing.JButton();
+        jLUbicacion = new javax.swing.JLabel();
+        jTDestinatario = new javax.swing.JTextField();
+        jTUbicacion = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -44,92 +116,109 @@ public class GUIMensajes extends javax.swing.JFrame {
         jLabel3.setText("Seleccione el tipo");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SMS", "MMS" }));
+        jCTipoMensaje.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SMS", "MMS" }));
+        jCTipoMensaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCTipoMensajeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jCTipoMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 51, 192, -1));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setText("Destinatario");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 97, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setText("Seleccione el Tipo");
-
-        try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 11, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setText("Mensaje");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTMensaje.setColumns(20);
+        jTMensaje.setRows(5);
+        jTMensaje.setText("Digita tu mensaje....");
+        jScrollPane1.setViewportView(jTMensaje);
 
-        jButton1.setText("Enviar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 192, -1));
+
+        jBEnviar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jBEnviar.setText("Enviar");
+        jBEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBEnviarActionPerformed(evt);
             }
         });
+        getContentPane().add(jBEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 430, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField1)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(27, 27, 27))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(54, 54, 54))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(62, 62, 62))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap())
-        );
+        jLUbicacion.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLUbicacion.setText("Ubicacion Imagen");
+        getContentPane().add(jLUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+
+        jTDestinatario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jTDestinatario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTDestinatario.setText("####-####");
+        jTDestinatario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTDestinatarioFocusLost(evt);
+            }
+        });
+        jTDestinatario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTDestinatarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTDestinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 190, 40));
+
+        jTUbicacion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jTUbicacion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTUbicacion.setText("/src/imgs/*.png");
+        jTUbicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTUbicacionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 190, 40));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEnviarActionPerformed
+        JOptionPane.showMessageDialog(null, "El mensaje se envio correctamente");
+        int resp = JOptionPane.showOptionDialog(null, "¿Desea enviar otro mensaje?"
+            , null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+            null, null, null);
+        if (resp == 0)
+        {
+            limpiar();
+        }
+        else
+        {
+            JFMain main = new JFMain();
+            main.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_jBEnviarActionPerformed
+
+    private void jTDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTDestinatarioActionPerformed
+       
+    }//GEN-LAST:event_jTDestinatarioActionPerformed
+
+    private void jCTipoMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCTipoMensajeActionPerformed
+        leerEstado();
+    }//GEN-LAST:event_jCTipoMensajeActionPerformed
+
+    private void jTUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTUbicacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jTUbicacionActionPerformed
+
+    private void jTDestinatarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTDestinatarioFocusLost
+        revisarContactos();
+    }//GEN-LAST:event_jTDestinatarioFocusLost
 
     /**
      * @param args the command line arguments
@@ -167,15 +256,18 @@ public class GUIMensajes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JButton jBEnviar;
+    private javax.swing.JComboBox jCTipoMensaje;
+    private javax.swing.JLabel jLUbicacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTDestinatario;
+    private javax.swing.JTextArea jTMensaje;
+    private javax.swing.JTextField jTUbicacion;
     // End of variables declaration//GEN-END:variables
 }
