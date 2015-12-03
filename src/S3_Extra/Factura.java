@@ -3,20 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SemanaV3;
+package S3_Extra;
 
 /**
  *
  * @author sergio
  */
-public class mainMath 
+public class Factura extends Precio 
 {
-    public static void main (String[] args)
-    {
-        MathV2 ma = new MathV2();
-        
-        ma.desplegarMenu();
-        
-        ma.desplegarMenuAcciones();
-    }
+   
 }

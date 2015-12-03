@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package InterfaceFinal;
+package S3_Extra;
 
 /**
  *
@@ -152,6 +152,11 @@ public class main extends javax.swing.JFrame {
         jBEje1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/BotonE1.png"))); // NOI18N
         jBEje1.setText("Eje1");
         jBEje1.setContentAreaFilled(false);
+        jBEje1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEje1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jBEje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 95, 490, 80));
 
         jBEje2.setText("Eje2");
@@ -213,6 +218,10 @@ public class main extends javax.swing.JFrame {
             System.out.print(jBPage1.getIcon());
         */
     }//GEN-LAST:event_jBPage1MouseEntered
+
+    private void jBEje1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEje1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBEje1ActionPerformed
 
     /**
      * @param args the command line arguments
