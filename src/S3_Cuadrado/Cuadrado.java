@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package S3_notas;
+package S3_Cuadrado;
 
 /**
  *
@@ -11,15 +11,14 @@ package S3_notas;
  */
 public class Cuadrado 
 {
-    private int lado;
+    private double lado;
     private double area;
     private double perimetro;
 
-    public Cuadrado(int lado) {
+    public Cuadrado(double lado) 
+    {
         this.lado = lado;
     }
-    
-    
     
     public void areaPerimetro ()
     {

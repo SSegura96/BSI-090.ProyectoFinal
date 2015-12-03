@@ -6,25 +6,25 @@ package S2_PlanoTriangulo;
 
 public class Triangulo 
 {
-    private int ladoA;
-    private int ladoB;
-    private int ladoC;
-    private int ladoMayor;
+    private double ladoA;
+    private double ladoB;
+    private double ladoC;
+    private double ladoMayor;
     private String mensaje;
 
-    public Triangulo(int ladoA, int ladoB, int ladoC) 
+    public Triangulo(double ladoA, double ladoB, double ladoC) 
     {
         this.ladoA = ladoA;
         this.ladoB = ladoB;
         this.ladoC = ladoC;
     }
-
+    
     public void setMensaje(String mensaje) 
     {
         this.mensaje = mensaje;
     }
     
-    public int mayor (int x, int y)
+    public double mayor (double x, double y)
     {
         if (x<y)
         {

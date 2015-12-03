@@ -5,7 +5,6 @@
  */
 package S3_notas;
 
-import S2_PlanoTriangulo.main;
 import java.io.File;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
@@ -27,7 +26,7 @@ public class CursoPromedio
     {
        File file = new File(ubucacion);
        
-       main.menu("Es necesario que se introduzcan "
+      JOptionPane.showMessageDialog(null, "Es necesario que se introduzcan "
                + "\n los nombres de las materias");
        
         for (int i = 0;i<materias.length;i++)
@@ -35,15 +34,20 @@ public class CursoPromedio
             materias[i]=JOptionPane.showInputDialog("Digite la materia #"+(i+1));
         }
        
-        if (main.menu("Seleccione una opcion","Introducir notas","cargar notas")== 0)
+        
+        String[] botones = {"Introducir notas","cargar notas"}; 
+        
+        if (JOptionPane.showOptionDialog(null, "Seleccione una opcion",
+                null, JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, botones, botones[0]) == 0)
         {
             for (int columna = 0;columna<matrisNotas.length;columna++)
             {
                JOptionPane.showMessageDialog(null, "bimestre #"+(columna+1));
                for (int fila = 0;fila<matrisNotas[columna].length;fila++)
                {
-                   matrisNotas[columna][fila] = main.menuInputDouble("Digite la nota"
-                           + " obtenida en: "+materias[fila]);
+                   matrisNotas[columna][fila] = Double.parseDouble(JOptionPane.showInputDialog("Digite la nota"
+                           + " obtenida en: "+materias[fila]));
                }
             }
         } 
